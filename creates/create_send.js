@@ -1,0 +1,161 @@
+const BASE_URL = 'https://api.notocat.com/v1';
+
+const perform = async (z, bundle) => {
+  const body = {
+    workspace_id: bundle.inputData.workspace_id,
+    page_id: bundle.inputData.page_id,
+    subject: bundle.inputData.subject,
+    preheader: bundle.inputData.preheader,
+    segment_id: bundle.inputData.segment_id,
+    font: bundle.inputData.font,
+    css: bundle.inputData.css,
+    linkColor: bundle.inputData.linkColor,
+    dividerColor: bundle.inputData.dividerColor,
+    dividerSize: bundle.inputData.dividerSize,
+    showCover: bundle.inputData.showCover,
+    trackOpens: bundle.inputData.trackOpens,
+    trackLinks: bundle.inputData.trackLinks,
+  };
+
+  const response = await z.request({
+    method: 'POST',
+    url: `${BASE_URL}/sends`,
+    body,
+  });
+  return response.data;
+};
+
+module.exports = {
+  key: 'create_send',
+  noun: 'Send',
+  display: {
+    label: 'Create Send',
+    description: 'Creates a new send (draft) from a Notion page.',
+  },
+  operation: {
+    inputFields: [
+      {
+        key: 'workspace_id',
+        label: 'Workspace ID',
+        type: 'string',
+        required: true,
+        helpText: 'The newsletter (workspace) ID.',
+      },
+      {
+        key: 'page_id',
+        label: 'Notion Page ID',
+        type: 'string',
+        required: true,
+        helpText: 'The ID of the Notion page to transform into an issue.',
+      },
+      {
+        key: 'subject',
+        label: 'Subject',
+        type: 'string',
+        required: false,
+        helpText: 'The email subject line. If not provided, it will be extracted from the Notion page.',
+      },
+      {
+        key: 'preheader',
+        label: 'Preheader',
+        type: 'string',
+        required: false,
+        helpText: 'The preheader text shown in email previews.',
+      },
+      {
+        key: 'segment_id',
+        label: 'Segment ID',
+        type: 'string',
+        required: false,
+        helpText: 'Send to a specific segment. If not provided, sends to all contacts.',
+      },
+      {
+        key: 'font',
+        label: 'Font',
+        type: 'string',
+        required: false,
+      },
+      {
+        key: 'css',
+        label: 'Custom CSS',
+        type: 'text',
+        required: false,
+      },
+      {
+        key: 'linkColor',
+        label: 'Link Color',
+        type: 'string',
+        required: false,
+        helpText: 'Hex color for links, e.g. #0000ED.',
+      },
+      {
+        key: 'dividerColor',
+        label: 'Divider Color',
+        type: 'string',
+        required: false,
+        helpText: 'Hex color for dividers, e.g. #434343.',
+      },
+      {
+        key: 'dividerSize',
+        label: 'Divider Size',
+        type: 'integer',
+        required: false,
+        helpText: 'Size of dividers in pixels. Defaults to 1.',
+      },
+      {
+        key: 'showCover',
+        label: 'Show Cover Image',
+        type: 'boolean',
+        required: false,
+        helpText: 'Whether to show the cover image. Defaults to true.',
+      },
+      {
+        key: 'trackOpens',
+        label: 'Track Opens',
+        type: 'boolean',
+        required: false,
+        helpText: 'Whether to track email opens. Defaults to true.',
+      },
+      {
+        key: 'trackLinks',
+        label: 'Track Links',
+        type: 'boolean',
+        required: false,
+        helpText: 'Whether to track link clicks. Defaults to true.',
+      },
+    ],
+    perform,
+    sample: {
+      id: 'snd_abc123',
+      workspace_id: 'wks_abc123',
+      page_id: 'notion-page-id',
+      subject: 'My Newsletter Issue',
+      preheader: 'A quick preview',
+      status: 'draft',
+      linkColor: '#0000ED',
+      dividerColor: '#434343',
+      dividerSize: 1,
+      showCover: true,
+      trackOpens: true,
+      trackLinks: true,
+      createdAt: '2025-01-01T00:00:00.000Z',
+      updatedAt: '2025-01-01T00:00:00.000Z',
+    },
+    outputFields: [
+      { key: 'id', label: 'Send ID', type: 'string' },
+      { key: 'workspace_id', label: 'Workspace ID', type: 'string' },
+      { key: 'page_id', label: 'Notion Page ID', type: 'string' },
+      { key: 'subject', label: 'Subject', type: 'string' },
+      { key: 'preheader', label: 'Preheader', type: 'string' },
+      { key: 'status', label: 'Status', type: 'string' },
+      { key: 'linkColor', label: 'Link Color', type: 'string' },
+      { key: 'dividerColor', label: 'Divider Color', type: 'string' },
+      { key: 'dividerSize', label: 'Divider Size', type: 'integer' },
+      { key: 'showCover', label: 'Show Cover', type: 'boolean' },
+      { key: 'trackOpens', label: 'Track Opens', type: 'boolean' },
+      { key: 'trackLinks', label: 'Track Links', type: 'boolean' },
+      { key: 'createdAt', label: 'Created At', type: 'datetime' },
+      { key: 'updatedAt', label: 'Updated At', type: 'datetime' },
+    ],
+  },
+};
