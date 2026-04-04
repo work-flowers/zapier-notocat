@@ -26,8 +26,8 @@ module.exports = {
         key: 'newsletter_id',
         label: 'Newsletter ID',
         type: 'string',
-        required: true,
-        helpText: 'The newsletter (workspace) ID, e.g. wks_abc123...',
+        required: false,
+        helpText: 'The newsletter (workspace) ID, e.g. wks_abc123. If not provided, searches across all newsletters.',
       },
       {
         key: 'email',
