@@ -1,5 +1,8 @@
 const authentication = require('./authentication');
 
+const newContact = require('./triggers/new_contact');
+const newUnsubscribe = require('./triggers/new_unsubscribe');
+
 const findContact = require('./searches/find_contact');
 const createOrUpdateContacts = require('./creates/create_or_update_contacts');
 const deleteContacts = require('./creates/delete_contacts');
@@ -32,7 +35,10 @@ module.exports = {
   beforeRequest: [addBearerHeader],
   afterResponse: [handleErrors],
 
-  triggers: {},
+  triggers: {
+    [newContact.key]: newContact,
+    [newUnsubscribe.key]: newUnsubscribe,
+  },
 
   searches: {
     [findContact.key]: findContact,

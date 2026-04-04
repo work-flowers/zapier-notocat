@@ -9,6 +9,8 @@ describe('app', () => {
     expect(App.version).toBeDefined();
     expect(App.platformVersion).toBeDefined();
     expect(App.authentication).toBeDefined();
+    expect(App.triggers.new_contact).toBeDefined();
+    expect(App.triggers.new_unsubscribe).toBeDefined();
     expect(App.searches.find_contact).toBeDefined();
     expect(App.creates.create_or_update_contact).toBeDefined();
     expect(App.creates.delete_contacts).toBeDefined();
@@ -37,8 +39,11 @@ describe('app', () => {
     expect(searchKeys).toContain('find_contact');
   });
 
-  it('should have no triggers', () => {
-    expect(Object.keys(App.triggers)).toHaveLength(0);
+  it('should have correct keys for triggers', () => {
+    const triggerKeys = Object.keys(App.triggers);
+    expect(triggerKeys).toHaveLength(2);
+    expect(triggerKeys).toContain('new_contact');
+    expect(triggerKeys).toContain('new_unsubscribe');
   });
 
   it('should include bearer auth middleware', () => {
