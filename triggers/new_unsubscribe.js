@@ -8,7 +8,6 @@ const perform = async (z, bundle) => {
     params: clean({
       newsletter_id: bundle.inputData.newsletter_id,
       subscribed: false,
-      limit: 100,
     }),
   });
 

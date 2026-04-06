@@ -9,7 +9,6 @@ const perform = async (z, bundle) => {
       newsletter_id: bundle.inputData.newsletter_id,
       email: bundle.inputData.email,
       subscribed: bundle.inputData.subscribed,
-      limit: 1,
     }),
   });
   return response.data.data || [];

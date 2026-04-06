@@ -6,7 +6,7 @@ const test = async (z, bundle) => {
   // We use skipThrowForStatus and check manually.
   const response = await z.request({
     url: `${BASE_URL}/contacts`,
-    params: { limit: 1 },
+    params: {},
     skipThrowForStatus: true,
   });
 

@@ -7,7 +7,6 @@ const perform = async (z, bundle) => {
     url: `${BASE_URL}/contacts`,
     params: clean({
       newsletter_id: bundle.inputData.newsletter_id,
-      limit: 100,
     }),
   });
 
