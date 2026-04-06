@@ -1,7 +1,9 @@
+const { clean } = require('../utils');
+
 const BASE_URL = 'https://api.notocat.com/v1';
 
 const perform = async (z, bundle) => {
-  const body = {
+  const body = clean({
     workspace_id: bundle.inputData.workspace_id,
     page_id: bundle.inputData.page_id,
     subject: bundle.inputData.subject,
@@ -16,7 +18,7 @@ const perform = async (z, bundle) => {
     trackOpens: bundle.inputData.trackOpens,
     trackLinks: bundle.inputData.trackLinks,
     senderId: bundle.inputData.senderId,
-  };
+  });
 
   const response = await z.request({
     method: 'POST',

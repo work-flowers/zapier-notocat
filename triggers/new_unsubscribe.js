@@ -1,13 +1,15 @@
+const { clean } = require('../utils');
+
 const BASE_URL = 'https://api.notocat.com/v1';
 
 const perform = async (z, bundle) => {
   const response = await z.request({
     url: `${BASE_URL}/contacts`,
-    params: {
+    params: clean({
       newsletter_id: bundle.inputData.newsletter_id,
       subscribed: false,
       limit: 100,
-    },
+    }),
   });
 
   const contacts = response.data.data || [];
