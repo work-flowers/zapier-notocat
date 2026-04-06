@@ -27,7 +27,7 @@ module.exports = {
         key: 'newsletter_id',
         label: 'Newsletter ID',
         type: 'string',
-        required: false,
+        required: true,
         helpText: 'The newsletter (workspace) ID.',
       },
       {
