@@ -1,12 +1,13 @@
 const BASE_URL = 'https://api.notocat.com/v1';
 
 const test = async (z, bundle) => {
-  // The API has no /me endpoint. GET /contacts without a newsletter_id returns
-  // 400 "You do not have access" for valid tokens, but 401 for invalid ones.
-  // We use skipThrowForStatus and check manually.
+  // The API has no /me endpoint. POST /sends with an empty body returns 400
+  // (missing fields) for valid tokens but 401 for invalid ones. This is the
+  // fastest endpoint to validate auth (~8s vs ~22s for GET /contacts).
   const response = await z.request({
-    url: `${BASE_URL}/contacts`,
-    params: {},
+    method: 'POST',
+    url: `${BASE_URL}/sends`,
+    body: {},
     skipThrowForStatus: true,
   });
 
@@ -14,7 +15,6 @@ const test = async (z, bundle) => {
     throw new z.errors.Error('API key is invalid or expired.', 'AuthenticationError', 401);
   }
 
-  // A 400 means the token is valid but no newsletter_id was given — that's fine
   return { authenticated: true };
 };
 
